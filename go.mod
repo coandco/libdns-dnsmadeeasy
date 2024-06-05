@@ -1,4 +1,4 @@
-module github.com/libdns/dnsmadeeasy
+module github.com/coandco/libdns-dnsmadeeasy
 
 go 1.18.0
 
