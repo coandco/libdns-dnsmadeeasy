@@ -2,6 +2,7 @@ package dnsmadeeasy
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"slices"
 	"strconv"
@@ -54,6 +55,7 @@ func createRecords(client dme.Client, zone string, records []libdns.Record) ([]l
 
 	// first, get the ID for our zone name
 	zoneId, err := client.IdForDomain(zone)
+	fmt.Printf("createRecords zoneId is %i\n", zoneId)
 	if err != nil {
 		return nil, err
 	}
@@ -65,6 +67,13 @@ func createRecords(client dme.Client, zone string, records []libdns.Record) ([]l
 		}
 		dmeRecords = append(dmeRecords, dmeRecord)
 	}
+
+	dmeJson, err := json.Marshal(dmeRecords)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	fmt.Printf("createRecords JSON: %s\n", dmeJson)
 
 	newDmeRecords, err := client.CreateRecords(zoneId, dmeRecords)
 	if err != nil {
