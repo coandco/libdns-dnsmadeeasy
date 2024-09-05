@@ -44,10 +44,11 @@ func recordFromDmeRecord(dmeRecord dme.Record) libdns.Record {
 func dmeRecordFromRecord(record libdns.Record) (dme.Record, error) {
 	var dmeRecord dme.Record
 	var id int
+	var err error
 	if record.ID == "" {
 		id = 0
 	} else {
-		id, err := strconv.Atoi(record.ID)
+		id, err = strconv.Atoi(record.ID)
 		if err != nil {
 			return dme.Record{}, err
 		}
