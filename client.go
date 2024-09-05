@@ -57,7 +57,7 @@ func dmeRecordFromRecord(record libdns.Record) (dme.Record, error) {
 	dmeRecord.Name = record.Name
 	dmeRecord.Type = record.Type
 	dmeRecord.Value = record.Value
-	dmeRecord.Ttl = int(record.TTL)
+	dmeRecord.Ttl = max(int(record.TTL), 5)
 	dmeRecord.GtdLocation = "DEFAULT"
 	if record.Type == "MX" {
 		dmeRecord.MxLevel = int(record.Priority)
