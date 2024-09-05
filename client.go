@@ -10,6 +10,13 @@ import (
 	"github.com/libdns/libdns"
 )
 
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+    return b
+}
+
 func (p *Provider) init(ctx context.Context) {
 	p.once.Do(func() {
 		p.client = *dme.GetClient(
