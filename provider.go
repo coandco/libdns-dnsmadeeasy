@@ -3,6 +3,7 @@ package dnsmadeeasy
 import (
 	"context"
 	"encoding/json"
+	"runtime/debug"
 	"fmt"
 	"slices"
 	"strconv"
@@ -52,6 +53,7 @@ func (p *Provider) GetRecords(ctx context.Context, zone string) ([]libdns.Record
 
 func createRecords(client dme.Client, zone string, records []libdns.Record) ([]libdns.Record, error) {
 	var dmeRecords []dme.Record
+	debug.PrintStack()
 
 	// first, get the ID for our zone name
 	zoneId, err := client.IdForDomain(zone)
