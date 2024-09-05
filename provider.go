@@ -60,11 +60,14 @@ func createRecords(client dme.Client, zone string, records []libdns.Record) ([]l
 		return nil, err
 	}
 
+	recordJson, err := json.Marshal(records)
+	if err == nil {
+		fmt.Printf("createRecords input records %s\n", recordJson)
+	}
+
 	for _, record := range records {
 		dmeRecord, err := dmeRecordFromRecord(record)
 		if err != nil {
-			recordJson, err := json.Marshal(record)
-			fmt.Printf("createRecords dmeRecordFromRecord error %s (original %s)\n", err, recordJson)
 			return []libdns.Record{}, err
 		}
 		dmeRecords = append(dmeRecords, dmeRecord)
