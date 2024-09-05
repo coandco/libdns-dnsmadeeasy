@@ -55,7 +55,7 @@ func createRecords(client dme.Client, zone string, records []libdns.Record) ([]l
 
 	// first, get the ID for our zone name
 	zoneId, err := client.IdForDomain(zone)
-	fmt.Printf("createRecords zoneId is %i\n", zoneId)
+	fmt.Printf("createRecords zoneId for %s is %i\n", zone, zoneId)
 	if err != nil {
 		return nil, err
 	}
