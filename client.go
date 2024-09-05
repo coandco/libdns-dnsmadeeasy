@@ -11,10 +11,10 @@ import (
 )
 
 func max(a, b int) int {
-    if a > b {
-        return a
-    }
-    return b
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func (p *Provider) init(ctx context.Context) {
@@ -32,7 +32,8 @@ func recordFromDmeRecord(dmeRecord dme.Record) libdns.Record {
 	rec.ID = fmt.Sprint(dmeRecord.ID)
 	rec.Type = dmeRecord.Type
 	rec.Name = dmeRecord.Name
-	rec.Value = dmeRecord.Value
+	// The upstream API has started returning spurious extra quotes around the value
+	rec.Value = dmeRecord.Value[1 : len(dmeRecord.Value)-1]
 	rec.TTL = time.Duration(dmeRecord.Ttl)
 
 	// TODO: enable support for SRV weight field and embedding
