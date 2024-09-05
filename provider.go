@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"runtime/debug"
 	"slices"
 	"strconv"
 	"sync"
@@ -52,7 +53,7 @@ func (p *Provider) GetRecords(ctx context.Context, zone string) ([]libdns.Record
 
 func createRecords(client dme.Client, zone string, records []libdns.Record) ([]libdns.Record, error) {
 	var dmeRecords []dme.Record
-
+	debug.PrintStack()
 	// first, get the ID for our zone name
 	zoneId, err := client.IdForDomain(zone)
 	fmt.Printf("createRecords zoneId for %s is %i\n", zone, zoneId)
@@ -98,7 +99,6 @@ func createRecords(client dme.Client, zone string, records []libdns.Record) ([]l
 		return nil, err
 	}
 	fmt.Printf("newRecords JSON: %s\n", newJson)
-
 
 	return newRecords, nil
 }
